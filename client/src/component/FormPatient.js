@@ -1,23 +1,49 @@
-import React from 'react';
-import { Button, TextField, withStyles } from '@material-ui/core'
+import { Button } from '@material-ui/core';
+import React, { useReducer, useState } from 'react';
+import FormField from './FormField/index';
+import { makeStyles } from '@material-ui/styles';
 
-const classes = withStyles({
-    container: {
-        textAlign: 'center'
+const useStyle = makeStyles({
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'center',
+        alignItems: 'center'
     }
 })
-function FormPatient({ scheme, onSubmit }) {
+function FormPatient({ schema, onSubmit }) {
+
+    const classes = useStyle();
+
+    const [newPat, setNewPat] = useState();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewPat(pre => {
+            return { ...pre, [name]: value }
+        })
+    }
+
 
     return (
-        <div>
-            <form>
-                <TextField />
-
+        <div >
+            <form onSubmit={(e) => onSubmit(e, newPat)} className={classes.form}>
+                {schema.map((obj, i) => {
+                    return <FormField key={i}
+                        options={obj.options}
+                        label={obj.key}
+                        type={obj.type}
+                        name={obj.key}
+                        onChange={handleChange}
+                        required={obj.required}
+                        min={obj.min}
+                        max={obj.max}
+                    />
+                })}
+                <Button type='submit' variant="contained" style={{ marginTop: '1rem' }} >submit</Button>
             </form>
-        </div>
+        </div >
     );
 }
-
-
 
 export default FormPatient;

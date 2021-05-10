@@ -15,6 +15,7 @@ const patientScheme = new Scheme({
     },
     age: {
         type: Number,
+        min: 3, max: 99,
         required: true
     },
     surgery: {
