@@ -18,7 +18,6 @@ const Loader = () => {
             <CircularProgress />
         </div>
     );
-
 };
 
 export default Loader;

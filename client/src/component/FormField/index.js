@@ -3,7 +3,7 @@ import TextField from './TextField';
 import SelectField from './SelectField';
 
 const FormField = ({ type, name, required, label, options, onChange, min, max }) => {
-    console.log(type)
+
     switch (type) {
         case 'String': {
             if (options) {

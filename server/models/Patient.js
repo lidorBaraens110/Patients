@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Scheme = mongoose.Schema;
 
 const patientScheme = new Scheme({
-    sex: {
+    gender: {
         type: String,
         enum: ['male', 'female', 'other'],
         required: true

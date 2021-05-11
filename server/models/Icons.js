@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Scheme = mongoose.Schema;
 
 const iconsScheme = new Scheme({
-    sex: {
+    gender: {
         type: String,
     },
     language: {

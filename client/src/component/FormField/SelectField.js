@@ -24,7 +24,7 @@ const SelectField = ({ name, options, required, label, onChange, }) => {
         setVal(e.target.value)
     }
     return (
-        <FormControl className={classes.formControl} required={required} variant="outlined" >
+        <FormControl className={classes.formControl} required={required}  >
             <InputLabel classes={{ asterisk: classes.asterisk }} htmlFor="age-native-simple">{label}</InputLabel>
             <Select onChange={handleChange} value={val}
                 inputProps={{

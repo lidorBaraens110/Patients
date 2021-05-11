@@ -1,5 +1,5 @@
-import { Button } from '@material-ui/core';
-import React, { useReducer, useState } from 'react';
+import { Button, CircularProgress } from '@material-ui/core';
+import React, { useState } from 'react';
 import FormField from './FormField/index';
 import { makeStyles } from '@material-ui/styles';
 
@@ -11,7 +11,7 @@ const useStyle = makeStyles({
         alignItems: 'center'
     }
 })
-function FormPatient({ schema, onSubmit }) {
+function FormPatient({ schema, onSubmit, isLoading }) {
 
     const classes = useStyle();
 
@@ -40,7 +40,9 @@ function FormPatient({ schema, onSubmit }) {
                         max={obj.max}
                     />
                 })}
-                <Button type='submit' variant="contained" style={{ marginTop: '1rem' }} >submit</Button>
+                <Button type='submit' variant="contained" style={{ marginTop: '1rem' }} >
+                    {isLoading ? <CircularProgress size="1rem" /> : 'Add'}
+                </Button>
             </form>
         </div >
     );
