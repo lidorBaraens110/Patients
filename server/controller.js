@@ -4,7 +4,7 @@ const reduce = require('lodash/reduce');
 const Icon = require('./models/Icons');
 
 
-// getScheme, getPatientById, addPatient
+
 const getScheme = async (req, res) => {
     const schema = reduce(PatientSchema.obj, (result, value, key) => {
         result.push({ key, type: value.type.name, options: value.enum, min: value.min, max: value.max, required: value.required });

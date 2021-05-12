@@ -41,7 +41,6 @@ const initialState = {
     isLoading: true,
     pageCount: 0,
     currentPage: 0
-    // NewPatient
 }
 
 const useStyle = makeStyles({

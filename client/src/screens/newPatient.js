@@ -50,8 +50,6 @@ const useStyle = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        // width: "-webkit-min-content",
-        // width: "-moz-min-content",
         width: "min-content",
         margin: "1em auto",
         background: "#EFEFEF",
