@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Loader from '../component/Loader';
-import { Typography, ListSubheader, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@material-ui/core';
+import { ListSubheader, List, IconButton } from '@material-ui/core';
 import DialogForm from '../component/DialogForm';
 import api from '../api';
 import PatientDetails from '../component/PatientDetails';
@@ -30,6 +29,8 @@ const reducer = (state, { type, payload }) => {
             return { ...state, isLoading: false }
         case 'CLOSE_DIALOG':
             return { ...state, dialogState: false }
+        default:
+            return state
     }
 }
 
@@ -49,8 +50,8 @@ const useStyle = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        width: "-webkit-min-content",
-        width: "-moz-min-content",
+        // width: "-webkit-min-content",
+        // width: "-moz-min-content",
         width: "min-content",
         margin: "1em auto",
         background: "#EFEFEF",
@@ -73,21 +74,24 @@ function NewPatient() {
     const { id } = useParams();
     const [state, dispatch] = useReducer(reducer, initialState, init)
 
-    useEffect(async () => {
-        const newPat = await api.getPatient(id);
-        const icons = await api.getIcons();
-        if (newPat.message) {
-            dispatch({ type: 'GET_PAT_FAILED', payload: newPat.message })
-        } else {
-            dispatch({ type: "GET_PAT_SUCCESS", payload: newPat.patient })
+    useEffect(() => {
+        async function fetchData() {
+            const newPat = await api.getPatient(id);
+            const icons = await api.getIcons();
+            if (newPat.message) {
+                dispatch({ type: 'GET_PAT_FAILED', payload: newPat.message })
+            } else {
+                dispatch({ type: "GET_PAT_SUCCESS", payload: newPat.patient })
+            }
+            if (icons.message) {
+                dispatch({ type: 'GET_ICONS_FAILED', payload: icons.message })
+            } else {
+                dispatch({ type: "GET_ICONS_SUCCESS", payload: icons.icons })
+            }
+            dispatch({ type: 'INITIAL_SUCCESS' })
         }
-        if (icons.message) {
-            dispatch({ type: 'GET_ICONS_FAILED', payload: icons.message })
-        } else {
-            dispatch({ type: "GET_ICONS_SUCCESS", payload: icons.icons })
-        }
-        dispatch({ type: 'INITIAL_SUCCESS' })
-    }, [])
+        fetchData()
+    }, [id])
 
     const backHome = () => {
         history.push('/addPatient')

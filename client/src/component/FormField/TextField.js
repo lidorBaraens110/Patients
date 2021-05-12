@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     },
 
 }));
-const TextField = ({ name, required, label, type, onChange, value, min, max }) => {
+const TextField = ({ name, required, label, type, onChange, currentValue, min, max }) => {
 
     const classes = useStyles();
 
@@ -22,12 +22,12 @@ const TextField = ({ name, required, label, type, onChange, value, min, max }) =
             className={classes.formControl}
             variant="outlined"
             type={type}
-            value={value}
+            value={currentValue}
             name={name}
             required={required}
             label={label}
             onChange={onChange}
-            InputProps={{ inputProps: type == 'number' && { min: min, max: max } }}
+            InputProps={{ inputProps: type === 'number' && { min: min, max: max } }}
             InputLabelProps={{
                 classes: {
                     asterisk: classes.asterisk

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -16,28 +16,25 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const SelectField = ({ name, options, required, label, onChange, }) => {
+const SelectField = ({ name, options, required, label, onChange, currentValue }) => {
     const classes = useStyles();
-    const [val, setVal] = useState('');
-    const handleChange = (e) => {
-        onChange(e);
-        setVal(e.target.value)
-    }
+
     return (
         <FormControl className={classes.formControl} required={required}  >
             <InputLabel classes={{ asterisk: classes.asterisk }} htmlFor="age-native-simple">{label}</InputLabel>
-            <Select onChange={handleChange} value={val}
+            <Select onChange={onChange} value={currentValue ? currentValue : ''}
                 inputProps={{
                     name: name,
                     id: 'age-native-simple',
                 }}
             >
                 {
-                    options.map((option, index) => (
-                        <MenuItem key={index} value={option}>
+                    options.map((option, index) => {
+                        return <MenuItem key={index} value={option}>
                             {option}
                         </MenuItem>
-                    ))
+                    }
+                    )
                 }
             </Select>
 
